@@ -1,8 +1,8 @@
 module Syslog2irc
   class IrcBot
     def initialize( host,
-                    port = 6667,
                     channel,
+                    port = 6667,
                     nick = 'syslog2irc',
                     realname = 'oBot v0.1',
                     messages_per_second = 1,
@@ -23,12 +23,16 @@ module Syslog2irc
       end
     end
 
-    def self.start
+    def start
       @bot.start
     end
 
-    def self.bot
+    def bot
       @bot
+    end
+
+    def handlers
+      @bot.handlers
     end
   end
 end

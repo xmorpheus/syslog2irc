@@ -5,28 +5,30 @@ require 'string-irc'
 require 'socket'
 require 'resolv'
 require 'obscenity'
+require 'yaml'
 
 require 'syslog2irc/version'
 require 'syslog2irc/irc_bot'
-require 'syslog2irc/send_Syslog'
+require 'syslog2irc/send_syslog'
 require 'syslog2irc/syslog_listener'
 
 
 module Syslog2irc
-  IRC_HOST            = 'your_irc_server'
-  IRC_PORT            = 6667
-  IRC_CHANNEL         = '#your_path'
-  IRC_NICK            = 'syslog2irc'
-  IRC_REALNAME        = 'oBot v0.1'
-  SYSLOG_PORT         = 1514
-  MESSAGES_PER_SECOND = 2
-  SERVER_QUEUE_SIZE   = 20
+
+  settings = YAML::load_file(File.join(__dir__, '../config/config.yml'))
 
   Obscenity.configure do |config|
     config.blacklist   = ["ignore_me"]
     config.replacement = :stars
   end
 
-  Thread.new { SyslogListener.new(IrcBot.bot, SYSLOG_PORT).start }
-  IrcBot.start
+  bot = IrcBot.new( settings['irc']['host'],
+                    settings['irc']['channel'],
+                    settings['irc']['port'],
+                    settings['irc']['nick'],
+                    settings['irc']['realname'],
+                    settings['irc']['mps'],
+                    settings['irc']['sqs'])
+  Thread.new { SyslogListener.new(bot, settings['syslog']['port']).start }
+  bot.start
 end

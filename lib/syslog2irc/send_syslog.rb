@@ -3,7 +3,8 @@ module Syslog2irc
     include Cinch::Plugin
 
     def initialize(*)
-      @channel = config[:channel] || fail 'Channel not set'
+      super
+      @channel = config[:channel]
     end
 
     listen_to :syslog
