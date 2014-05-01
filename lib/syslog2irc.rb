@@ -18,7 +18,7 @@ module Syslog2irc
   settings = YAML::load_file(File.join(__dir__, '../config/config.yml'))
 
   Obscenity.configure do |config|
-    config.blacklist   = ["ignore_me"]
+    config.blacklist   = File.join(__dir__, '../config/blacklist.yml')
     config.replacement = :stars
   end
 
