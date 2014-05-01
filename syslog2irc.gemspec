@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Syslog2irc::VERSION
   spec.authors       = ["Frerichs"]
   spec.email         = ["frerichs@fremaks.de"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Send syslog messages to irc}
+  spec.description   = nil
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "syslog_protocol"
   spec.add_dependency "string-irc"
   spec.add_dependency "obscenity"
+  spec.add_dependency "cinch"
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "bundler", "~> 1.5"
