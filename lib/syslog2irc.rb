@@ -15,10 +15,10 @@ require 'syslog2irc/syslog_listener'
 
 module Syslog2irc
 
-  settings = YAML::load_file(File.join(__dir__, '../config/config.yml'))
+  settings = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), '../config/config.yml'))
 
   Obscenity.configure do |config|
-    config.blacklist   = File.join(__dir__, '../config/blacklist.yml')
+    config.blacklist   = File.join(File.dirname(File.expand_path(__FILE__)), '../config/blacklist.yml')
     config.replacement = :stars
   end
 
