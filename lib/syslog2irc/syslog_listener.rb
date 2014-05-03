@@ -21,7 +21,9 @@ module Syslog2irc
             host = meta[2].to_s
           end
 
-          message = "#{StringIrc.new(parsed.severity_name.upcase).bold.to_s} #{StringIrc.new(host).bold.to_s} - #{parsed.content}"
+          puts parsed.inspect
+
+          message = "#{StringIrc.new(parsed.severity_name.upcase).bold.to_s} #{StringIrc.new(host).bold.to_s} - #{parsed.tag if parsed.tag != 'unknown'} #{parsed.content}"
           case parsed.severity_name
           when 'notice'
             message = StringIrc.new(message).light_blue
