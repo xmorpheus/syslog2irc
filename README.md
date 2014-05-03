@@ -4,12 +4,12 @@ Simple Syslog to IRC Gateway with message filtering
 
 ## Installation
  
-  $ git clone https://github.com/xmorpheus/syslog2irc.git
-  $ cd syslog2irc
-  $ cd config
-  $ copy config-default.yml config.yml
-  $ copy blacklist-default.yml blacklist.yml
-  $ $EDITOR config.yml
+`$ git clone https://github.com/xmorpheus/syslog2irc.git`
+`$ cd syslog2irc`
+`$ cd config`
+`$ copy config-default.yml config.yml`
+`$ copy blacklist-default.yml blacklist.yml`
+`$ $EDITOR config.yml`
 
 ## Usage
 
