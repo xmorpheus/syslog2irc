@@ -1,13 +1,15 @@
 module Syslog2irc
   class IrcBot
-    def initialize( host,
-                    channel,
-                    port = 6667,
-                    nick = 'syslog2irc',
-                    realname = 'oBot v0.1',
-                    messages_per_second = 1,
-                    server_queue_size = 10)
-      raise 'not configured' if host.nil? || channel.nil?
+    attr_reader :bot
+
+    def initialize(host,
+                   channel,
+                   port = 6667,
+                   nick = 'syslog2irc',
+                   realname = 'oBot v0.1',
+                   messages_per_second = 1,
+                   server_queue_size = 10)
+      fail 'not configured' if host.nil? || channel.nil?
       @bot = Cinch::Bot.new do
         configure do |c|
           c.server              = host
@@ -25,10 +27,6 @@ module Syslog2irc
 
     def start
       @bot.start
-    end
-
-    def bot
-      @bot
     end
 
     def handlers

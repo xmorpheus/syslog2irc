@@ -1,0 +1,8 @@
+MethodLength:
+  Max: 25
+Documentation:
+  Enabled: false
+ParameterLists:
+  Max: 7
+RegexpLiteral:
+  MaxSlashes: 0
