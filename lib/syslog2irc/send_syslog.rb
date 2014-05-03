@@ -8,7 +8,7 @@ module Syslog2irc
     end
 
     listen_to :syslog
-    def listen(m, log)
+    def listen(_m, log)
       Channel(@channel).send log
     end
   end
