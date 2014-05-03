@@ -40,6 +40,7 @@ module Syslog2irc
 
           @bot.handlers.dispatch(:syslog, nil, message.to_s)
         rescue Exception => ex
+          puts "PLAIN: #{data}"
 	        puts ex.message
   	      puts ex.backtrace.join("\n")
           @bot.handlers.dispatch(:syslog, nil, 'syslog exception')
