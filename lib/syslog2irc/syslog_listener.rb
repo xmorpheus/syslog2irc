@@ -11,11 +11,17 @@ module Syslog2irc
         begin
           data, meta = @listener.recvfrom(9000)
           parsed = SyslogProtocol.parse(data, meta[2])
+
+          #puts "Blacklisted: #{parsed.content}\n" if Obscenity.profane?(parsed.content) # uncomment to see blacklisted message on cli
           next if Obscenity.profane?(parsed.content)
 
-          host = Resolv.getname(meta[2]).to_s #StringIrc.new(Resolv.getname(meta[2]).to_s).bold.to_s
+          begin
+            host = Resolv.getname(meta[2]).to_s
+	        rescue
+            host = meta[2].to_s
+          end
 
-          message = "#{parsed.severity_name} #{host} - #{parsed.content}"
+          message = "#{StringIrc.new(parsed.severity_name.upcase).bold.to_s} #{StringIrc.new(host).bold.to_s} - #{parsed.content}"
           case parsed.severity_name
           when 'notice'
             message = StringIrc.new(message).light_blue
@@ -23,15 +29,18 @@ module Syslog2irc
             message = StringIrc.new(message).blue
           when 'warn'
             message = StringIrc.new(message).yellow
-          when 'error', 'alert', 'crit'
+          when 'error', 'alert', 'crit', 'err'
             message = StringIrc.new(message).red
           else
             message = StringIrc.new(message).green
           end
 
           @bot.handlers.dispatch(:syslog, nil, message.to_s)
-        rescue
+        rescue Exception => ex
+	        puts ex.message
+  	      puts ex.backtrace.join("\n")
           @bot.handlers.dispatch(:syslog, nil, 'syslog exception')
+          raise ex
         end
       end
     end
