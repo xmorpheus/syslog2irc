@@ -1,24 +1,19 @@
 # Syslog2irc
 
-TODO: Write a gem description
+Simple Syslog to IRC Gateway with message filtering
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'syslog2irc'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install syslog2irc
+ 
+  $ git clone https://github.com/xmorpheus/syslog2irc.git
+  $ cd syslog2irc
+  $ cd config
+  $ copy config-default.yml config.yml
+  $ copy blacklist-default.yml blacklist.yml
+  $ $EDITOR config.yml
 
 ## Usage
 
-TODO: Write usage instructions here
+  $ ./bin/syslog2irc
 
 ## Contributing
 
