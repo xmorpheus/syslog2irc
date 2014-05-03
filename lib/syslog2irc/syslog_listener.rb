@@ -14,6 +14,7 @@ module Syslog2irc
 
           #puts "Blacklisted: #{parsed.content}\n" if Obscenity.profane?(parsed.content) # uncomment to see blacklisted message on cli
           next if Obscenity.profane?(parsed.content)
+          next if Obscenity.profane?(parsed.tag)
 
           begin
             host = Resolv.getname(meta[2]).to_s
