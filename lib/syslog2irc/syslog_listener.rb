@@ -21,7 +21,8 @@ module Syslog2irc
             host = meta[2].to_s
           end
 
-          severity = StringIrc.new(parsed.severity_name.upcase).bold
+	  severity = intendSeverity(parsed.severity_name)
+          severity = StringIrc.new(severity.upcase).bold
           hostname = StringIrc.new(host).bold
           tag = parsed.tag if parsed.tag != 'unknown'
           message = "#{severity} #{hostname} - #{tag} #{parsed.content}"
@@ -39,6 +40,21 @@ module Syslog2irc
     end
 
     private
+
+    def intendSeverity(severity)
+      case severity
+      when 'err'
+        return 'error '
+      when 'warn'
+        return 'warn  '
+      when 'info'
+        return 'info  '
+      when 'crit'
+        return 'crit  '
+      else
+        return severity
+      end
+    end
 
     def colorfy(severity, msg)
       case severity
